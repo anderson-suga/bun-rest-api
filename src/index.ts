@@ -1,6 +1,8 @@
 import { Elysia } from "elysia";
+import { plugin } from './plugin'
 
 const app = new Elysia().get("/", () => "Hello Elysia")
+.use(plugin)
 .state({'version': 1})
 .decorate('getData', () => Date.now())
 .get("/post/:id",({params: {id}}) => {return {id: id, title: "Learn Bun"}})
