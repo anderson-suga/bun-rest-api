@@ -1,5 +1,6 @@
 import { Elysia } from "elysia";
 import { plugin } from './plugin'
+import { signinDTO } from './models'
 
 const app = new Elysia().get("/", () => "Hello Elysia")
 .use(plugin)
@@ -28,8 +29,11 @@ const app = new Elysia().get("/", () => "Hello Elysia")
 });
 
 app.group('/user', app => app
-.post('sign-up', () => 'Sig In Route')
-.post('sign-up', () => 'Sig Up Route')
+.post('sign-up', ({body}) => body, {
+  body: signinDTO,
+  response: signinDTO
+})
+.post('sign-in', () => 'Sig In Route')
 .post('profile', () => 'Profile Route')
 );
 
