@@ -25,8 +25,16 @@ const app = new Elysia().get("/", () => "Hello Elysia")
       'Content-Type': 'application/json'
     }
   })
-})
-.listen(3000);
+});
+
+app.group('/user', app => app
+.post('sign-up', () => 'Sig In Route')
+.post('sign-up', () => 'Sig Up Route')
+.post('profile', () => 'Profile Route')
+);
+
+
+app.listen(3000);
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
