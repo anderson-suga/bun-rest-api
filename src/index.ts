@@ -1,4 +1,4 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { plugin } from './plugin'
 import { signinDTO } from './models'
 
@@ -37,6 +37,19 @@ app.group('/user', app => app
 .post('profile', () => 'Profile Route')
 );
 
+app.group('/v1', app => app
+.get('/', () => 'version 1')
+.group('/products', app => app
+.get('/:id', ({params: {id}}) => {
+  return id
+},
+{
+  params: t.Object({
+    id: t.Numeric()
+  })
+})
+)
+);
 
 app.listen(3000);
 
