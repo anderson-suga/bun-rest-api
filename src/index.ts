@@ -1,13 +1,17 @@
 import { Elysia } from "elysia";
 
 const app = new Elysia().get("/", () => "Hello Elysia")
+.state({'version': 1})
+.decorate('getData', () => Date.now())
 .get("/post/:id",({params: {id}}) => {return {id: id, title: "Learn Bun"}})
 .post("/post", ({body ,set}) => { 
   set.status = 201;
   return body;
 })
 .get("/track/*", () => {return 'Track Route'})
-.get("/tracks", () => {
+.get("/tracks", ({store, getData}) => {
+  console.log(store);
+  console.log(getData());
   return new Response(JSON.stringify({
     "tracks" : [
       'Dancing Feat',
